@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "0bb02d34-0e19-4758-b07c-314d4fbf712b",
+		"name": "API tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26269566"
+	},
+	"item": [
+		{
+			"name": "All currencies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"try {\r",
+							"    var responseJson = pm.response.json();\r",
+							"    \r",
+							"    // Получение первого Symbol\r",
+							"    if (responseJson && responseJson.length > 0) {\r",
+							"        var firstSymbolObject = responseJson[0];\r",
+							"\r",
+							"        // Извлечение только значения \"symbol\" из объекта\r",
+							"        var firstSymbol = firstSymbolObject && firstSymbolObject.symbol ? firstSymbolObject.symbol : null;\r",
+							"\r",
+							"        if (firstSymbol !== null) {\r",
+							"            // Сохранение первого Symbol в переменную окружения \"firstSymbol\"\r",
+							"            pm.environment.set(\"firstSymbol\", firstSymbol);\r",
+							"\r",
+							"            console.log(\"First Symbol:\", firstSymbol);\r",
+							"        } else {\r",
+							"            console.log(\"No 'symbol' property found in the first object.\");\r",
+							"            pm.environment.unset(\"firstSymbol\"); // Очистка переменной окружения, если 'symbol' отсутствует\r",
+							"        }\r",
+							"    } else {\r",
+							"        console.log(\"No symbols found in the response.\");\r",
+							"        pm.environment.unset(\"firstSymbol\"); // Очистка переменной окружения в случае отсутствия символов\r",
+							"    }\r",
+							"} catch (error) {\r",
+							"    console.error(\"Error parsing JSON or extracting first symbol:\", error);\r",
+							"    console.log(\"Response Body:\", pm.response.text());\r",
+							"    pm.environment.unset(\"firstSymbol\"); // Очистка переменной окружения в случае ошибки\r",
+							"}\r",
+							"\r",
+							"// Проверка, что вернулся ответ 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.stealthex.io/api/v2/currency?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stealthex",
+						"io"
+					],
+					"path": [
+						"api",
+						"v2",
+						"currency"
+					],
+					"query": [
+						{
+							"key": "fixed",
+							"value": "boolean",
+							"disabled": true
+						},
+						{
+							"key": "api_key",
+							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currency available pairs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Парсинг JSON-ответа\r",
+							"try {\r",
+							"    var responseJson = pm.response.json();\r",
+							"    \r",
+							"    // Получение рандомной пары\r",
+							"    if (responseJson && responseJson.length > 0) {\r",
+							"        var randomPair = responseJson[Math.floor(Math.random() * responseJson.length)];\r",
+							"\r",
+							"        // Сохранение рандомной пары в переменную окружения \"RandomPair\"\r",
+							"        pm.environment.set(\"randomPair\", randomPair);\r",
+							"\r",
+							"        console.log(\"Random Pair:\", randomPair);\r",
+							"    } else {\r",
+							"        console.log(\"No pairs found in the response.\");\r",
+							"        pm.environment.unset(\"randomPair\"); // Очистка переменной окружения в случае отсутствия пар\r",
+							"    }\r",
+							"} catch (error) {\r",
+							"    console.error(\"Error parsing JSON or extracting random pair:\", error);\r",
+							"    console.log(\"Response Body:\", pm.response.text());\r",
+							"    pm.environment.unset(\"randomPair\"); // Очистка переменной окружения в случае ошибки\r",
+							"}\r",
+							"\r",
+							"// Проверка, что вернулся ответ 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.stealthex.io/api/v2/pairs/:symbol?fixed=true&api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stealthex",
+						"io"
+					],
+					"path": [
+						"api",
+						"v2",
+						"pairs",
+						":symbol"
+					],
+					"query": [
+						{
+							"key": "fixed",
+							"value": "true"
+						},
+						{
+							"key": "api_key",
+							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+						}
+					],
+					"variable": [
+						{
+							"key": "symbol",
+							"value": "{{firstSymbol}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Парсинг JSON-ответа\r",
+							"try {\r",
+							"    var responseJson = pm.response.json();\r",
+							"    \r",
+							"    // Получение значений \"min_amount\" и \"max_amount\" из объекта\r",
+							"    var minRange = responseJson && responseJson.min_amount ? responseJson.min_amount : null;\r",
+							"    var maxRange = responseJson && responseJson.max_amount ? responseJson.max_amount : null;\r",
+							"\r",
+							"    if (minRange !== null) {\r",
+							"        // Сохранение значения \"min_amount\" в переменную окружения \"min_range\"\r",
+							"        pm.environment.set(\"min_range\", minRange);\r",
+							"        console.log(\"Min Range:\", minRange);\r",
+							"    } else {\r",
+							"        console.log(\"No 'min_amount' property found in the response.\");\r",
+							"        pm.environment.unset(\"min_range\"); // Очистка переменной окружения, если 'min_amount' отсутствует\r",
+							"    }\r",
+							"\r",
+							"    if (maxRange !== null) {\r",
+							"        // Сохранение значения \"max_amount\" в переменную окружения \"max_range\"\r",
+							"        pm.environment.set(\"max_range\", maxRange);\r",
+							"        console.log(\"Max Range:\", maxRange);\r",
+							"    } else {\r",
+							"        console.log(\"No 'max_amount' property found in the response.\");\r",
+							"        pm.environment.unset(\"max_range\"); // Очистка переменной окружения, если 'max_amount' отсутствует\r",
+							"    }\r",
+							"} catch (error) {\r",
+							"    console.error(\"Error parsing JSON or extracting ranges:\", error);\r",
+							"    console.log(\"Response Body:\", pm.response.text());\r",
+							"    pm.environment.unset(\"min_range\");\r",
+							"    pm.environment.unset(\"max_range\"); // Очистка переменных окружения в случае ошибки\r",
+							"}\r",
+							"\r",
+							"// Проверка, что вернулся ответ 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.stealthex.io/api/v2/range/:from/:to?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100&fixed=true",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stealthex",
+						"io"
+					],
+					"path": [
+						"api",
+						"v2",
+						"range",
+						":from",
+						":to"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+						},
+						{
+							"key": "fixed",
+							"value": "true"
+						}
+					],
+					"variable": [
+						{
+							"key": "from",
+							"value": "{{firstSymbol}}"
+						},
+						{
+							"key": "to",
+							"value": "{{randomPair}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create min exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currency_from\": {{firstSymbol}},\r\n    \"currency_to\": {{randomPair}},\r\n    \"address_to\": \"test\",\r\n    \"amount_from\": {{min_range}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.stealthex.io/api/v2/exchange?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stealthex",
+						"io"
+					],
+					"path": [
+						"api",
+						"v2",
+						"exchange"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create max exchange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currency_from\": {{firstSymbol}},\r\n    \"currency_to\": {{randomPair}},\r\n    \"address_to\": \"test\",\r\n    \"amount_from\": {{max_range}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.stealthex.io/api/v2/exchange?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stealthex",
+						"io"
+					],
+					"path": [
+						"api",
+						"v2",
+						"exchange"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "inherit"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
