@@ -64,7 +64,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.stealthex.io/api/v2/currency?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"raw": "https://api.stealthex.io/api/v2/currency?api_key=",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -84,7 +84,7 @@
 						},
 						{
 							"key": "api_key",
-							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+							"value": ""
 						}
 					]
 				}
@@ -154,7 +154,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.stealthex.io/api/v2/pairs/:symbol?fixed=true&api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"raw": "https://api.stealthex.io/api/v2/pairs/:symbol?fixed=true&api_key=",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -174,7 +174,7 @@
 						},
 						{
 							"key": "api_key",
-							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+							"value": ""
 						}
 					],
 					"variable": [
@@ -248,7 +248,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.stealthex.io/api/v2/range/:from/:to?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100&fixed=true",
+					"raw": "https://api.stealthex.io/api/v2/range/:from/:to?api_key=&fixed=true",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -265,7 +265,7 @@
 					"query": [
 						{
 							"key": "api_key",
-							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+							"value": ""
 						},
 						{
 							"key": "fixed",
@@ -301,7 +301,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.stealthex.io/api/v2/exchange?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"raw": "https://api.stealthex.io/api/v2/exchange?api_key=",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -316,7 +316,7 @@
 					"query": [
 						{
 							"key": "api_key",
-							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+							"value": ""
 						}
 					]
 				}
@@ -338,7 +338,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://api.stealthex.io/api/v2/exchange?api_key=73ea0a1f-85bd-463b-abfd-395cf69f1100",
+					"raw": "https://api.stealthex.io/api/v2/exchange?api_key",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -353,7 +353,7 @@
 					"query": [
 						{
 							"key": "api_key",
-							"value": "73ea0a1f-85bd-463b-abfd-395cf69f1100"
+							"value": null
 						}
 					]
 				}
